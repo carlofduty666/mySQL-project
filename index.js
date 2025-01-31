@@ -10,8 +10,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
 
 app.get('/', (request, response) => {
-    response.send('Fher es culón')
+    const filePath = path.join(__dirname, 'views/index.html')
+    response.sendFile(filePath)
 })
+
+// app.get('/', (req, res) => {
+//     const filePath = path.join(__dirname, 'views/index.html')
+//     res.sendFile(filePath)
+// })
 
 // app.get('/data', (request, response) => {
 //     const consulta = 'SELECT * FROM usuarios';
