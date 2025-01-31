@@ -13,7 +13,8 @@
         <% if (Array.isArray(users)) { %>
             <% users.forEach(user => { %>
                 <li>
-                    <%= user.id %> - <%= user.nombre %> - <%= user.apellido %> - <%= user.correo %> - <%= user.direccion %> - <%= user.numero_telefono %> - <%= user.fecha_creacion %>
+                    <%= user.id %> - <%= user.nombre %> - <%= user.apellido %> - <%= user.correo %> - <%= user.direccion %> - <%= user.numero_telefono %> - 
+                    <%= user.fecha_creacion %>
                 </li>
             <% }); %>
         <% } else { %>

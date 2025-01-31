@@ -27,8 +27,9 @@ router.get('/:id', (request, response) => {
     });
 });
 
-router.get('/user/:nombre', (request, response) => {
+router.get('/nombre', (request, response) => {
     User.getUserByName(request.params.nombre, (error, result) => {
+        console.log(result);
         if (error) {
             console.error('Error al ejecutar la consulta:', error);
             return response.status(500).send('Error al ejecutar la consulta');
@@ -40,5 +41,39 @@ router.get('/user/:nombre', (request, response) => {
         response.render('user', { users: result });
     });
 });
+
+router.post('/', (request, response) => {
+    const user = request.body;
+    User.createUser(user, (error, result) => {
+        if (error) {
+            console.log('Error al crear el usuario:', error);
+            return response.status(500).send('Error al crear el usuario');
+        }
+        res.status('user', { mensaje: "Usuario creado exitosamente" });
+    });
+})
+
+router.put('/', (request, response) => {
+    const user = request.body;
+    User.updateDer(user, (error, result) => {
+        if (error) {
+            console.log('Error al actualizar el usuario:', error);
+            response.status(500).send('Error al actualizar el usuario');
+            return;
+        }
+        response.send('user', { mensaje: "Usuario actualizado exitosamente" });
+    });
+})
+
+router.delete('/:id', (request, response) => {
+    User.deleteUser(request.params.id, (error, result) => {
+        if (error) {
+            console.log('Error al eliminar el usuario:', error);
+            response.status(500).send('Error al eliminar el usuario');
+            return;
+        }
+        response.send('user', { mensaje: "Usuario eliminado exitosamente" });
+    });
+})
 
 module.exports = router;
