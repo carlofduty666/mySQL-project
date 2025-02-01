@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { User }  = require('../models/users');
 
+// router.get('/view', (request, response) => {
+//     response.render('index', { nombre: 'Act c/s 🔥' });
+// });
+
 router.get('/', (request, response) => {
     User.getAllUsers((error, result) => {
         if (error) {
@@ -10,10 +14,11 @@ router.get('/', (request, response) => {
             return;
         }
         response.render('user', { users: result });
+        // response.send({ users: result });
     });
 });
 
-router.get('/:id', (request, response) => {
+router.get('/id/:id', (request, response) => {
     User.getUserById(request.params.id, (error, result) => {
         if (error) {
             console.error('Error al ejecutar la consulta:', error);
@@ -27,7 +32,7 @@ router.get('/:id', (request, response) => {
     });
 });
 
-router.get('/nombre', (request, response) => {
+router.get('/name/:nombre', (request, response) => {
     User.getUserByName(request.params.nombre, (error, result) => {
         console.log(result);
         if (error) {
@@ -43,25 +48,28 @@ router.get('/nombre', (request, response) => {
 });
 
 router.post('/', (request, response) => {
+    console.log(user)
     const user = request.body;
     User.createUser(user, (error, result) => {
         if (error) {
             console.log('Error al crear el usuario:', error);
-            return response.status(500).send('Error al crear el usuario');
+            response.status(500).send('Error al crear el usuario');
+            return;
         }
-        res.status('user', { mensaje: "Usuario creado exitosamente" });
+        response.send( { users: result } );
     });
 })
 
 router.put('/', (request, response) => {
     const user = request.body;
-    User.updateDer(user, (error, result) => {
+    console.log(request.body);
+    User.updateUser(user, (error, result) => {
         if (error) {
             console.log('Error al actualizar el usuario:', error);
             response.status(500).send('Error al actualizar el usuario');
             return;
         }
-        response.send('user', { mensaje: "Usuario actualizado exitosamente" });
+        response.send({ mensaje: "Usuario actualizado exitosamente" });
     });
 })
 
@@ -75,5 +83,7 @@ router.delete('/:id', (request, response) => {
         response.send('user', { mensaje: "Usuario eliminado exitosamente" });
     });
 })
+
+
 
 module.exports = router;

@@ -15,8 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('bodyParser');
 
 app.get('/', (request, response) => {
-    const filePath = path.join(__dirname, 'views/index.html')
-    response.sendFile(filePath)
+    response.send('Hola Fher')
 })
 
 // app.get('/', (req, res) => {
