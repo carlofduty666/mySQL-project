@@ -18,8 +18,8 @@ const User = {
         return db.query(consulta, callback);
     },
     deleteUser: function(id, callback) {
-        const consulta = `DELETE FROM usuarios WHERE id = ${id}`;
-        return db.query(consulta, callback);
+        const consulta = `DELETE FROM usuarios WHERE id = ?`;
+        return db.query(consulta, [id], callback);
     
     },
     updateUser: function(user, callback) {

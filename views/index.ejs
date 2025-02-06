@@ -6,6 +6,26 @@
     <title><%=nombre%></title>
 </head>
 <body>
-    <script src="/js/app.js"></script>
+    <div>
+            <form id="formCreate">
+                <input type="text" id="nombre" name="nombre" placeholder="nombre">
+                <input type="text" id="apellido" name="apellido" placeholder="apellido">
+                <input type="text" id="correo" name="correo" placeholder="correo">
+                <input type="text" id="direccion" name="direccion" placeholder="direccion">
+                <input type="number" id="numero_telefono" name="numero_telefono" placeholder="numero de telefono">
+                
+                <button id="boton">
+                    Guardar
+                </button>
+            </form>
+    </div>
+    <div id="data">
+
+    </div>
+
+    <% if (id == 1) { %>
+
+        <script src="/js/app.js"></script>
+    <% } %>
 </body>
 </html>

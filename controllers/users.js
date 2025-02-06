@@ -2,9 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { User }  = require('../models/users');
 
-// router.get('/view', (request, response) => {
-//     response.render('index', { nombre: 'Act c/s 🔥' });
-// });
+router.get('/view', (request, response) => {
+    const info = {
+        id: 1,
+        nombre: 'Act c/s 🔥'
+    }
+    response.render('index', info);
+});
 
 router.get('/', (request, response) => {
     User.getAllUsers((error, result) => {
@@ -13,8 +17,8 @@ router.get('/', (request, response) => {
             response.status(500).send('Error al ejecutar la consulta');
             return;
         }
-        response.render('user', { users: result });
-        // response.send({ users: result });
+        // response.render('user', { users: result });
+        response.send({ users: result });
     });
 });
 
@@ -48,7 +52,6 @@ router.get('/name/:nombre', (request, response) => {
 });
 
 router.post('/', (request, response) => {
-    console.log(user)
     const user = request.body;
     User.createUser(user, (error, result) => {
         if (error) {
@@ -74,13 +77,14 @@ router.put('/', (request, response) => {
 })
 
 router.delete('/:id', (request, response) => {
+    console.log(request.body);
     User.deleteUser(request.params.id, (error, result) => {
         if (error) {
             console.log('Error al eliminar el usuario:', error);
             response.status(500).send('Error al eliminar el usuario');
             return;
         }
-        response.send('user', { mensaje: "Usuario eliminado exitosamente" });
+        response.send({ mensaje: "Usuario eliminado exitosamente" });
     });
 })
 
