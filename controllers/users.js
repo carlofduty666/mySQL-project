@@ -7,7 +7,7 @@ router.get('/view', (request, response) => {
         id: 1,
         nombre: 'Act c/s 🔥'
     }
-    response.render('index', info);
+    response.render('index', info); // <---- AQUI renderizas HTML
 });
 
 router.get('/', (request, response) => {
@@ -32,7 +32,12 @@ router.get('/id/:id', (request, response) => {
             console.log('No se encontró el usuario con ID:', request.params.id);
             return response.status(404).send('Usuario no encontrado');
         }
-        response.render('user', { users: result });
+        // response.render('index', { users: result });
+        response.render('index', {
+            id: 1,
+            nombre: 'Act c/s 🔥',
+            users: result
+        });
     });
 });
 
@@ -47,7 +52,7 @@ router.get('/name/:nombre', (request, response) => {
             console.log('No se encontró el usuario con nombre:', request.params.nombre);
             return response.status(404).send('Usuario no encontrado');
         }
-        response.render('user', { users: result });
+        response.render('index', { users: result });
     });
 });
 
@@ -59,7 +64,12 @@ router.post('/', (request, response) => {
             response.status(500).send('Error al crear el usuario');
             return;
         }
-        response.send( { users: result } );
+        // response.send( { users: result } );
+        response.render('index', {
+            id: 1,
+            nombre: 'Act c/s 🔥',
+            users: result
+        });
     });
 })
 

@@ -18,24 +18,6 @@ app.get('/', (request, response) => {
     response.send('Hola Fher')
 })
 
-// app.get('/', (req, res) => {
-//     const filePath = path.join(__dirname, 'views/index.html')
-//     res.sendFile(filePath)
-// })
-
-// app.get('/data', (request, response) => {
-//     const consulta = 'SELECT * FROM usuarios';
-
-//     db.query(consulta, (error, result) => {  // Corrige aquí
-//         if (error) {
-//             console.log('Error al ejecutar la consulta');
-//             response.status(500).send('Error al ejecutar la consulta');
-//             return;
-//         }
-//         response.json(result);
-//     });
-// });
-
 app.use('/user', userController);
 
 db.connect((error) => {
