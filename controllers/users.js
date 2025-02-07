@@ -64,12 +64,12 @@ router.post('/', (request, response) => {
             response.status(500).send('Error al crear el usuario');
             return;
         }
-        // response.send( { users: result } );
-        response.render('index', {
-            id: 1,
-            nombre: 'Act c/s 🔥',
-            users: result
-        });
+        response.send( { users: result } );
+        // response.render('index', {
+        //     id: 1,
+        //     nombre: 'Act c/s 🔥',
+        //     users: result
+        // });
     });
 })
 
