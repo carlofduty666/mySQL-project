@@ -26,6 +26,10 @@ const User = {
         const consulta = `UPDATE usuarios SET nombre = "${user.nombre}", apellido = "${user.apellido}", correo = "${user.correo}", direccion = "${user.direccion}", numero_telefono = "${user.numero_telefono}" WHERE id = ${user.id}`;
         return db.query(consulta, callback);
     },
+    registerUser: function(username, hash, callback) {
+        const consulta = `INSERT INTO usuarios (username, password, rol) VALUES ("${username}", "${hash}", "user")`;
+        return db.query(consulta, callback);
+    },
 };
 
 

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 
 const userController = require('./controllers/users');
+const userControllerAuth = require('./controllers/user');
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
@@ -19,6 +20,7 @@ app.get('/', (request, response) => {
 })
 
 app.use('/user', userController);
+app.use('/user', userControllerAuth);
 
 db.connect((error) => {
     if (error) {
