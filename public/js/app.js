@@ -1,5 +1,8 @@
 const btn = document.getElementById('boton')
 const btn2 = document.getElementById('boton2')
+
+var user_id = id;
+
 function getData(){
     document.getElementById('data').innerHTML = "";
     fetch('http://localhost:9999/user')
@@ -87,14 +90,12 @@ function editData(id) {
     numero_telefono.value = rawTelefono.trim(); // Remove leading/trailing spaces!
 
 
-    // btn.removeEventListener('click', (e) => {
-    //     e.preventDefault();
-    //     saveData("POST");
-    // })
+    user_id = id;
 
     btn2.addEventListener('click', (e) => {
         e.preventDefault();
-        saveData(id);
+        console_log(user_id);
+        saveData(user_id);
     })
 }
 

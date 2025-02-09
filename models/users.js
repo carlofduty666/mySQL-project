@@ -14,7 +14,13 @@ const User = {
         return db.query(consulta, [nombre], callback); // Pasar el nombre como parámetro
     },
     createUser: function(user, callback) {
-        const consulta = `INSERT INTO usuarios (nombre, apellido, correo, direccion, numero_telefono) VALUES ("${user.nombre}", "${user.apellido}", "${user.correo}", "${user.direccion}", "${user.numero_telefono}")`;
+        const consulta = `INSERT INTO usuarios
+        (nombre, apellido, username, password, rol, correo, direccion, numero_telefono) 
+        VALUES 
+        ("${user.nombre}", "${user.apellido}",
+        "${user.username}", "${user.password}",
+        "user", "${user.correo}",
+        "${user.direccion}", "${user.numero_telefono}")`;
         return db.query(consulta, callback);
     },
     deleteUser: function(id, callback) {
@@ -23,7 +29,7 @@ const User = {
     
     },
     updateUser: function(user, callback) {
-        const consulta = `UPDATE usuarios SET nombre = "${user.nombre}", apellido = "${user.apellido}", correo = "${user.correo}", direccion = "${user.direccion}", numero_telefono = "${user.numero_telefono}" WHERE id = ${user.id}`;
+        const consulta = `UPDATE usuarios SET nombre = "${user.nombre}", apellido = "${user.apellido}", username = "${user.username}", password = "${user.password}", rol = "${user.rol}", correo = "${user.correo}", direccion = "${user.direccion}", numero_telefono = "${user.numero_telefono}" WHERE id = ${user.id}`;
         return db.query(consulta, callback);
     },
     registerUser: function(username, hash, callback) {
