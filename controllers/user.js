@@ -23,6 +23,9 @@ router.get('/', (request, response) => {
     });
 });
 
+router.get('/auth', (request, response) => {
+    const { username, password } = request.body;
+
 router.post('/login', (request, response) => {
     User.createUser(user, (error, result) => {
         if (error) {
