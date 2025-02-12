@@ -99,57 +99,6 @@ function editData(id) {
     })
 }
 
-// function editData(id) {
-//     var nombre = document.getElementById('nombre');
-//     var apellido = document.getElementById('apellido');
-//     var correo = document.getElementById('correo');
-//     var direccion = document.getElementById('direccion');
-//     var numero_telefono = document.getElementById('numero_telefono');
-
-//     var user = document.getElementById(`user-card-${id}`);
-
-//     nombre.value = user.querySelector('.nombre').innerText;
-//     apellido.value = user.querySelector('.apellido').innerText;
-//     correo.value = user.querySelector('.correo').innerText;
-//     direccion.value = user.querySelector('.direccion').innerText;
-//     // numero_telefono.value = document.querySelector('.numero_telefono')[0].innerText;
-
-//     let rawTelefono = user.querySelector('.numero_telefono')?.innerText || "";
-//     numero_telefono.value = rawTelefono.trim(); // Remove leading/trailing spaces!
-
-//     fetch('http://localhost:9999/user', {
-//         method: "PUT",
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//             id: id,
-//             nombre: nombre.value,
-//             apellido: apellido.value,
-//             correo: correo.value,
-//             direccion: direccion.value,
-//             numero_telefono: numero_telefono.value
-//         })
-//     })
-//     .then(response => {
-//         if (response.ok) {
-//             alert('Usuario creado correctamente')
-//             getData();
-//             nombre.value = '';
-//             apellido.value = '';
-//             correo.value = '';
-//             direccion.value = '';
-//             numero_telefono.value = '';
-//         } else {
-//             alert('Error al crear el usuario')
-//         }
-//         return response.json()
-//     })
-//     .then(data => {
-//         console.log(data)
-//     })
-    
-// }
 
 function saveData(id) {
     
