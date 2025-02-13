@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { User }  = require('../models/users');
-// const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');
 
-router.get('/view', (request, response) => {
+router.get('/view', auth, (request, response) => { // el auth siendo (importado de ../middleware/auth.js) se ejecuta primero para comprobar autenticacion y luego se ejecuta el siguiente codigo
     const info = {
         id: 1,
-        nombre: 'Act c/s 🔥'
+        nombre: 'Users database'
     }
     response.render('index', info); // <---- AQUI renderizas HTML
 });

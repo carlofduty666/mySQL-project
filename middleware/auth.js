@@ -1,20 +1,22 @@
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-// const auth = (request, response, next) => {
-//     const token = request.cookies.token
+const auth = (request, response, next) => {
 
-//     if (!token) {
-//         return response.status(401).send("No puedes ver esto, no estas autenticado")
-//     }
+    const token = request.cookies.token; // es para obtener el token del cookie
+    if (!token) {
+        return response.status(401).send('Necesitas autenticarte para ver esto');
 
-//     jwt.verify(token, "Hola", (error, user) => {
-//         if (error) {
-//             return response.status(403).send("No puedes ver esto, autenticacion fallido")
-//         }
-//         request.user = user;
-//         next();
-//     })
+    }
 
-// }
+    jwt.verify(token, 'hola', (error, user) => {
+        if (error) {
+            return response.status(403).send('No estas autorizado para ver esto, autenticacion fallida');
 
-// module.exports = auth
+        }
+        request.user = user;
+        next(); // esta funcion se ejecuta primero en el archivo users.js y luego se ejecuta el codigo del controlador ../controllers\users.js
+    })
+ 
+}
+
+module.exports = auth

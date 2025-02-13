@@ -19,7 +19,10 @@ router.get('/auth', (request, response) => {
 router.post('/login', (request, response) => {
     const {username, password} = request.body;
 
+    console.log('Login attempt for username:', username);
+    
     User.loginUser(username, (error, result) => {
+        console.log('Database result:', result);
         if (error) {
             console.log('Error al iniciar sesion:', error);
             response.status(500).send('Error al iniciar sesion')
@@ -32,18 +35,24 @@ router.post('/login', (request, response) => {
         const user = result[0];
 
         bcrypt.compare(password, user.password, (error, isMatch) => {
+            console.log('Comparing passwords:');
+            console.log('Provided password:', password);
+            console.log('Stored hash:', user.password);
+            console.log('Match result:', isMatch);
             if (error) {
                 console.log(error);
                 response.status(500).send('Error al verificar contraseña');
                 return;
             }
             if (!isMatch) {
+                
                 response.status(401).send('Usuario incorrecto')
                 return;
 
             }
             const token = jwt.sign({ id: user.id }, 'hola', { expiresIn: '1h'})
             console.log(token);
+            response.cookie('token', token, {httpOnly: true, path: '/'});
             response.status(200).send({token})
         })
     })

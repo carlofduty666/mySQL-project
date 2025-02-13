@@ -22,8 +22,9 @@ function loginFunction() {
             alert('Usuario autenticado')
             username.value = '';
             password.value = '';
+            // window.location.href = '/users/view'
         } else {
-            if (response.status === 401) {
+            if (response.status = 401) {
                 console.log("Credenciales incorrectas", response)
                 alert('Credenciales incorrectas')
 
@@ -49,7 +50,7 @@ function registroFunction() {
     })
     .then(response => {
         if (response.ok) {
-            alert('Usuario regristrado')
+            alert('Usuario registrado')
             username.value = '';
             password.value = '';
         }
