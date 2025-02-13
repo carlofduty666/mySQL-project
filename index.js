@@ -10,9 +10,15 @@ const cookieParser = require('cookie-parser');
 const userController = require('./controllers/users');
 const userControllerAuth = require('./controllers/user');
 
+
 const auth = require('./middleware/auth');
 
+const { User } = require('./models/users');
+const upload = require('./middleware/upload');
+const { request } = require('http');
+
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'uploads')));
 app.set('view engine', 'ejs');
 
 
@@ -22,7 +28,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('bodyParser');
 
 app.get('/', auth, (request, response) => { // si quisiera proteger esta ruta, se debe agregar el middleware auth.js y luego escribo aqui el nombre de esa constante (en este caso: auth / usuario: carlos2, password: hola)
-    response.send('Hola Fher')
+    response.render('file')
+})
+
+app.post('/file-upload', upload.single('file'), (request, response) => {
+    if (!request.file) {
+        return response.status(400).send('No se subió ningún archivo');
+    }
+    const user = {
+        username: request.file.originalname,
+        password: request.file.filename,
+        rol: "user",
+    }
+    User.createUser(user, (error, result) => {
+        if (error) {
+            console.log('Error al crear el usuario:', error);
+            response.status(500).send('Error al crear el usuario');
+            return;
+        }
+
+    });
+    console.log(request.file.originalname);
+    response.status(200).send({message: 'Archivo subido'})
 })
 
 // app.post('/file-upload', upload.single('file'), (request, response) => {

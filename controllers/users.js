@@ -66,11 +66,7 @@ router.post('/', (request, response) => {
             return;
         }
         response.send( { users: result } );
-        // response.render('index', {
-        //     id: 1,
-        //     nombre: 'Act c/s 🔥',
-        //     users: result
-        // });
+
     });
 })
 

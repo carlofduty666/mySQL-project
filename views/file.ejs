@@ -14,11 +14,19 @@
     <script>
         const uploadFile = async () => {
             const fileInput = document.getElementById('file');
-            const file = fileInput.files[0]
+            const file = fileInput.files[0] // se usa [0] porque los archivos se guardan en un array
 
-            const formData = new FormData();
+            const formData = new FormData(); // el new significa que se va a crear un nuevo objeto y si no lo uso se va a usar el mismo objeto el cual es el mismo que se esta usando en el backend llamado file y formData es un objeto que se usa para enviar archivos a un servidor
             formData.append('file', file);
 
+            fetch('http://localhost:9999/file-upload', {
+                method: 'POST',
+                body: formData // el body es el archivo que se va a enviar
+            }). then(response => response.json())
+            .then(data => {
+                console.log(data)
+                alert(data.message);
+            })
             
         }
     </script>

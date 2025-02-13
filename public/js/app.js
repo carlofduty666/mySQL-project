@@ -27,6 +27,7 @@ function getData(){
                         ${user.username}
                     </span>
                     <span class="password">
+                        <img src="/${user.password}" alt="Imagen de ${user.nombre}" width="100" height="100">
                         ${user.password}
                     </span>
                     <span class="rol">
