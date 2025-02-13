@@ -10,15 +10,18 @@ const cookieParser = require('cookie-parser');
 const userController = require('./controllers/users');
 const userControllerAuth = require('./controllers/user');
 
+const auth = require('./middleware/auth');
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
+
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('bodyParser');
 
-app.get('/', (request, response) => {
+app.get('/', auth, (request, response) => { // si quisiera proteger esta ruta, se debe agregar el middleware auth.js y luego escribo aqui el nombre de esa constante (en este caso: auth / usuario: carlos2, password: hola)
     response.send('Hola Fher')
 })
 

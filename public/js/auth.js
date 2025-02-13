@@ -22,7 +22,7 @@ function loginFunction() {
             alert('Usuario autenticado')
             username.value = '';
             password.value = '';
-            // window.location.href = '/users/view'
+            window.location.href = '/user/view'
         } else {
             if (response.status = 401) {
                 console.log("Credenciales incorrectas", response)
