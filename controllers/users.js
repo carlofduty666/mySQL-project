@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User }  = require('../models/users');
-const auth = require('../middleware/auth')
+// const auth = require('../middleware/auth');
 
 router.get('/view', (request, response) => {
     const info = {

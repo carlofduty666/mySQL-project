@@ -25,7 +25,7 @@ const User = {
     },
     deleteUser: function(id, callback) {
         const consulta = `DELETE FROM usuarios WHERE id = ?`;
-        return db.query(consulta, [id], callback);
+        return db.query(consulta, [id], callback);  
     
     },
     updateUser: function(user, callback) {
@@ -33,9 +33,19 @@ const User = {
         return db.query(consulta, callback);
     },
     registerUser: function(username, hash, callback) {
-        const consulta = `INSERT INTO usuarios (username, password, rol) VALUES ("${username}", "${hash}", "user")`;
+        const consulta = `INSERT INTO usuarios
+        (nombre, apellido, username, password, rol, correo, direccion, numero_telefono) 
+        VALUES 
+        ("${username.nombre}", "${username.apellido}",
+        "${username}", "${hash}",
+        "user", "${username.correo}",
+        "${username.direccion}", "${username.numero_telefono}")`;
         return db.query(consulta, callback);
     },
+    loginUser: function(username, callback) {
+        const consulta = `SELECT * FROM usuarios WHERE username = "${username}"`;
+        return db.query(consulta, callback);
+    }
 };
 
 

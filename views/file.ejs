@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File</title>
+</head>
+<body>
+
+    <input type="file" name="" id="file"> 
+    <button onclick="uploadFile()">Subir archivo</button>
+    
+
+    <script>
+        const uploadFile = async () => {
+            const fileInput = document.getElementById('file');
+            const file = fileInput.files[0]
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,11 @@
-const btn = document.getElementById('boton')
+const btn = document.getElementById('boton');
+btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    createData();
+});
 const btn2 = document.getElementById('boton2')
 
-var user_id = id;
+var user_id;
 
 function getData(){
     document.getElementById('data').innerHTML = "";
@@ -19,6 +23,15 @@ function getData(){
                             ${user.apellido}
                         </h3>
                     </div>
+                    <span class="username">
+                        ${user.username}
+                    </span>
+                    <span class="password">
+                        ${user.password}
+                    </span>
+                    <span class="rol">
+                        ${user.rol}
+                    </span>
                     <span class="correo">
                         ${user.correo}
                     </span>
@@ -37,20 +50,11 @@ function getData(){
                     <button value="${user.id}" onclick="deleteItem(${user.id})">
                         Eliminar
                     </button>
-                    <button value="${user.id}" onclick="deleteItem(${user.id})">
-                        Actualizar
-                    </button>
 
                 </div>
                         `
                     });
     })
-
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        createData();
-    })
-
     
 }
 
@@ -71,9 +75,58 @@ function deleteItem(id){
     })
 }
 
+function createData() {
+    
+    var nombre = document.getElementById('nombre');
+    var apellido = document.getElementById('apellido');
+    var username = document.getElementById('username');
+    var password = document.getElementById('password');
+    var rol = document.getElementById('rol');
+    var correo = document.getElementById('correo');
+    var direccion = document.getElementById('direccion');
+    var numero_telefono = document.getElementById('numero_telefono');
+
+
+    fetch('http://localhost:9999/user', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nombre: nombre.value,
+            apellido: apellido.value,
+            username: username.value,
+            password: password.value,
+            rol: rol.value,
+            correo: correo.value,
+            direccion: direccion.value,
+            numero_telefono: numero_telefono.value
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Usuario creado correctamente')
+            getData();
+            nombre.value = '';
+            apellido.value = '';
+            correo.value = '';
+            username.value = '';
+            password.value = '';
+            rol.value = '';
+            direccion.value = '';
+            numero_telefono.value = '';
+        }
+    })
+
+
+}
+
 function editData(id) {
     var nombre = document.getElementById('nombre');
     var apellido = document.getElementById('apellido');
+    var username = document.getElementById('username');
+    var password = document.getElementById('password');
+    var rol = document.getElementById('rol');
     var correo = document.getElementById('correo');
     var direccion = document.getElementById('direccion');
     var numero_telefono = document.getElementById('numero_telefono');
@@ -82,28 +135,36 @@ function editData(id) {
 
     nombre.value = user.getElementsByClassName('nombre')[0].innerText;
     apellido.value = user.getElementsByClassName('apellido')[0].innerText;
-    correo.value = user.getElementsByClassName('correo')[0].innerText;
+    username.value = user.getElementsByClassName('username')[0].innerText.trim();
+    password.value = user.getElementsByClassName('password')[0].innerText.trim();
+    rol.value = user.getElementsByClassName('rol')[0].innerText.trim();
+    correo.value = user.getElementsByClassName('correo')[0].innerText.trim();
     direccion.value = user.getElementsByClassName('direccion')[0].innerText;
     // numero_telefono.value = user.getElementsByClassName('numero_telefono')[0].innerText;
-
+    
     let rawTelefono = user.getElementsByClassName('numero_telefono')[0]?.innerText || "";
     numero_telefono.value = rawTelefono.trim(); // Remove leading/trailing spaces!
 
 
     user_id = id;
 
-    btn2.addEventListener('click', (e) => {
-        e.preventDefault();
-        console_log(user_id);
-        saveData(user_id);
-    })
+    
 }
+
+btn2.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(user_id);
+    saveData(user_id);
+})
 
 
 function saveData(id) {
     
     var nombre = document.getElementById('nombre');
     var apellido = document.getElementById('apellido');
+    var username = document.getElementById('username');
+    var password = document.getElementById('password');
+    var rol = document.getElementById('rol');
     var correo = document.getElementById('correo');
     var direccion = document.getElementById('direccion');
     var numero_telefono = document.getElementById('numero_telefono');
@@ -118,6 +179,9 @@ function saveData(id) {
                 id: id,
                 nombre: nombre.value,
                 apellido: apellido.value,
+                username: username.value,
+                password: password.value,
+                rol: rol.value,
                 correo: correo.value,
                 direccion: direccion.value,
                 numero_telefono: numero_telefono.value
@@ -130,69 +194,14 @@ function saveData(id) {
                 nombre.value = '';
                 apellido.value = '';
                 correo.value = '';
+                username.value = '';
+                password.value = '';
+                rol.value = '';
                 direccion.value = '';
                 numero_telefono.value = '';
-            } else {
-                alert('Error al crear el usuario')
             }
-            return response.json()
-        })
-        .then(data => {
-            console.log(data)
         })
     
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            createData();
-        })
-    
-    
-    }
-
-function createData() {
-    
-var nombre = document.getElementById('nombre');
-var apellido = document.getElementById('apellido');
-var correo = document.getElementById('correo');
-var direccion = document.getElementById('direccion');
-var numero_telefono = document.getElementById('numero_telefono');
+ }
 
 
-    fetch('http://localhost:9999/user', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            nombre: nombre.value,
-            apellido: apellido.value,
-            correo: correo.value,
-            direccion: direccion.value,
-            numero_telefono: numero_telefono.value
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Usuario creado correctamente')
-            getData();
-            nombre.value = '';
-            apellido.value = '';
-            correo.value = '';
-            direccion.value = '';
-            numero_telefono.value = '';
-        } else {
-            alert('Error al crear el usuario')
-        }
-        return response.json()
-    })
-    .then(data => {
-        console.log(data)
-    })
-
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        createData();
-    })
-
-
-}

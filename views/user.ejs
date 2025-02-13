@@ -21,28 +21,15 @@
 
     <div>
         <h1>Login</h1>
-        <form action="" id="registro">
-            <input type="text" id="user" name="user" placeholder="username">
-            <input type="password" id="password" placeholder="password">
+        <form action="" id="login">
+            <input type="text" id="user-login" name="user" placeholder="username">
+            <input type="password" id="password-login" placeholder="password">
             <button type="submit">
                 Login
             </button>
         </form>
     </div>
-    <!-- <h1>Lista de Usuario</h1>
-
-    <ul>
-        <% if (Array.isArray(users)) { %>
-            <% users.forEach(user => { %>
-                <li>
-                    <%= user.id %> - <%= user.nombre %> - <%= user.apellido %> - <%= user.correo %> - <%= user.direccion %> - <%= user.numero_telefono %> - 
-                    <%= user.fecha_creacion %>
-                </li>
-            <% }); %>
-        <% } else { %>
-            <li>No hay usuarios disponibles.</li>
-        <% } %>
-    </ul> -->
-    <script src="/public/js/app.js"></script>
+    
+    <script src="/js/auth.js"></script>
 </body>
 </html>
